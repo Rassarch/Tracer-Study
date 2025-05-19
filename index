@@ -16,7 +16,11 @@
       let currentStep = 0;
       const steps = document.querySelectorAll(".step");
       const nextBtns = document.querySelectorAll(".btn-next");
-      const prevBtns = document.querySelectorAll(".btn-prev");function showStep(index) {
+      const prevBtns = document.querySelectorAll(".btn-prev");
+      const kerjaRadio = document.querySelector("#statusKerja");
+      const kuliahRadio = document.querySelector("#statusKuliah");
+      const bagianKerja = document.querySelector("#formKerja");
+      const bagianKuliah = document.querySelector("#formKuliah");function showStep(index) {
     steps.forEach((step, i) => {
       step.classList.toggle("active", i === index);
     });
@@ -53,6 +57,20 @@
     showStep(currentStep);
   });
 
+  document.querySelector("#pilihanAktivitas").addEventListener("change", (e) => {
+    const value = e.target.value;
+    if (value === "bekerja") {
+      bagianKerja.classList.remove("hidden");
+      bagianKuliah.classList.add("hidden");
+    } else if (value === "kuliah") {
+      bagianKuliah.classList.remove("hidden");
+      bagianKerja.classList.add("hidden");
+    } else {
+      bagianKerja.classList.add("hidden");
+      bagianKuliah.classList.add("hidden");
+    }
+  });
+
   showStep(currentStep);
 });
 
@@ -70,7 +88,7 @@
       <input type="text" placeholder="Alamat" required class="input">
       <input type="tel" placeholder="No. HP" required class="input">
       <input type="email" placeholder="Email" required class="input">
-      <input type="text" placeholder="Sarana Termudah Dihubungi (Telp / Email / Pos)" class="input">
+      <input type="text" placeholder="Sarana Termudah Dihubungi" class="input">
     </div>
     <div class="text-right mt-4">
       <button type="button" class="btn-next bg-blue-600 text-white px-6 py-2 rounded-md">Selanjutnya</button>
@@ -91,38 +109,43 @@
     </div>
   </div>
 
-  <!-- Step 3: Data Pekerjaan -->
+  <!-- Step 3: Aktivitas Setelah Lulus -->
   <div class="step">
-    <h2 class="text-xl font-semibold mb-4">3. Data Pekerjaan</h2>
-    <div class="grid grid-cols-1 gap-4">
-      <select class="input">
-        <option value="">Apakah sudah bekerja?</option>
-        <option value="ya">Ya</option>
-        <option value="tidak">Tidak</option>
-      </select>
+    <h2 class="text-xl font-semibold mb-4">3. Aktivitas Setelah Lulus</h2>
+    <select id="pilihanAktivitas" class="input">
+      <option value="">Pilih Aktivitas</option>
+      <option value="bekerja">Bekerja</option>
+      <option value="kuliah">Studi Lanjut</option>
+    </select>
+
+    <div id="formKerja" class="hidden mt-4 space-y-4">
       <input type="text" placeholder="Nama Instansi/Perusahaan" class="input">
       <input type="text" placeholder="Alamat Instansi/Perusahaan" class="input">
       <input type="text" placeholder="Jabatan" class="input">
       <input type="text" placeholder="Deskripsi Pekerjaan" class="input">
-      <input type="text" placeholder="Mulai Bekerja (Bulan dan Tahun)" class="input">
+      <input type="month" placeholder="Mulai Bekerja" class="input">
       <input type="number" placeholder="Masa Kerja (bulan)" class="input">
       <input type="text" placeholder="Besar Gaji (Rp)" class="input">
     </div>
+
+    <div id="formKuliah" class="hidden mt-4 space-y-4">
+      <input type="text" placeholder="Nama Universitas" class="input">
+      <input type="text" placeholder="Alamat Universitas" class="input">
+      <input type="text" placeholder="Jurusan / Program Studi" class="input">
+      <input type="month" placeholder="Bulan & Tahun Awal Studi" class="input">
+    </div>
+
     <div class="flex justify-between mt-4">
       <button type="button" class="btn-prev bg-gray-400 text-white px-6 py-2 rounded-md">Kembali</button>
       <button type="button" class="btn-next bg-blue-600 text-white px-6 py-2 rounded-md">Selanjutnya</button>
     </div>
   </div>
 
-  <!-- Step 4: Studi Lanjut -->
+  <!-- Step 4: Upload Tanda Tangan -->
   <div class="step">
-    <h2 class="text-xl font-semibold mb-4">4. Data Studi Lanjut</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="text" placeholder="Nama Universitas" class="input">
-      <input type="text" placeholder="Alamat Universitas" class="input">
-      <input type="text" placeholder="Jurusan / Program Studi" class="input">
-      <input type="month" placeholder="Awal Studi" class="input">
-    </div>
+    <h2 class="text-xl font-semibold mb-4">4. Upload Tanda Tangan</h2>
+    <p class="mb-2 text-sm text-gray-600">Unggah scan tanda tangan Anda (format gambar .jpg/.png)</p>
+    <input type="file" accept="image/png, image/jpeg" class="input">
     <div class="flex justify-between mt-4">
       <button type="button" class="btn-prev bg-gray-400 text-white px-6 py-2 rounded-md">Kembali</button>
       <button type="button" class="btn-next bg-blue-600 text-white px-6 py-2 rounded-md">Selanjutnya</button>
